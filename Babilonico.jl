@@ -8,7 +8,7 @@ function babilonico(y)
         e = abs(x-xn)
         print("xn+1 = $(x) \nerror = $(e)\n\n")
     end
-    return x
+    x
 end
 
 y = 55
