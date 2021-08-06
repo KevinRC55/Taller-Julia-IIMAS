@@ -27,6 +27,9 @@ md"""
 # Visualización y Graficación 
 """
 
+# ╔═╡ 8df69909-1fcc-49c5-8710-f84f6e6058dd
+PlutoUI.TableOfContents(aside=true, title="Uso de Pluto🎈 💚💜🔴")
+
 # ╔═╡ 5c6ccf40-eb71-487f-a7d5-a247c1ff9564
 md"""
 ## Interacción entre widgets
@@ -86,10 +89,24 @@ begin
 end
 
 # ╔═╡ a0ca1627-5efd-40f0-afca-a8876932cfe5
-
-
-# ╔═╡ cbaabe96-6307-4dea-9a02-96a123e868db
-
+begin
+	function Rellenar(f,col)
+	    x = 0:0.01:6π
+	    y = f.(x)
+	    positivos_x = []
+	    negativos_x = []
+	    for i ∈ x
+	        f(i) > 0 ? push!(positivos_x, i) : push!(negativos_x, i)
+	    end
+	    #Para quitar las discontinuidades cuando se cortan los intervalos
+	    trim(f; val=0.01) = x -> abs(f(x)) < val ? NaN : f(x)
+	    plot!(trim(f),[positivos_x, negativos_x],fill = true, leg = false, alpha = 0.5, c= col)
+	end
+	f1_rellenar(x) = sin(x)
+	Rellenar(f1_rellenar,"green")
+	f2_rellenar(x) = cos(x)
+	Rellenar(f2_rellenar,"orange")
+end
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -922,6 +939,7 @@ version = "0.9.1+5"
 # ╠═07bd34b0-ea23-4f62-accd-8d8a1c9694f4
 # ╠═937c8b2a-37c8-4db6-844f-38fa8113402f
 # ╠═91a1d8f2-9d2e-4e4f-a574-ef56970a55cf
+# ╠═8df69909-1fcc-49c5-8710-f84f6e6058dd
 # ╟─5c6ccf40-eb71-487f-a7d5-a247c1ff9564
 # ╠═fbc03598-06f2-4d86-a1d1-c688102b4184
 # ╠═b5c745ff-042b-4a74-9cef-2525ed468897
@@ -936,6 +954,5 @@ version = "0.9.1+5"
 # ╠═e8020dc8-f6f1-4f5d-b762-02a9c59ea26a
 # ╠═6be571fe-0421-47b1-808d-e2bb12c00c25
 # ╠═a0ca1627-5efd-40f0-afca-a8876932cfe5
-# ╠═cbaabe96-6307-4dea-9a02-96a123e868db
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
